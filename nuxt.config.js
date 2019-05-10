@@ -1,4 +1,5 @@
 import pkg from './package'
+import ApiConfig from './config/api'
 
 export default {
   mode: 'universal',
@@ -40,6 +41,11 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    // '@/plugins/http'
+    {
+      src: '@/plugins/http', 
+      ssr: false
+    },
     // '@/plugins/element-ui'
     {
       src: '@/plugins/element-ui', 
@@ -71,12 +77,14 @@ export default {
   ** proxy module configuration
   */
   proxy: {
-    '/api': {
-      target: 'http://example.com',
+    '/gsafetyclound': {
+      target: ApiConfig.apiHost,
+      changeOrigin: true,
+      secure: true,
       pathRewrite: {
-        '^/api' : '/'
+        '^/gsafetyclound': '/gsafetyclound'
       }
-    }
+    },
   },
 
   /*

@@ -37,7 +37,7 @@
 
         data() {
             return {
-            
+                
             }
         },
 
@@ -63,6 +63,9 @@
                 };
 
                 this.setUser(user)
+
+
+                console.log(111,this.$http)
 
             }
         },

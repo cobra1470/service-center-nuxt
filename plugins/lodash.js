@@ -3,7 +3,7 @@
  * @Date: 2019-05-09 11:53:15
  * @lodash 4.17.10 文档： hhttps://www.html.cn/doc/lodash/
  */
-import Vue from 'vue'
+import Vue from 'vue';
 import _ from 'lodash';
 
 // import _cloneDeep from 'lodash/cloneDeep';
