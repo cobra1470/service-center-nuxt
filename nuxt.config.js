@@ -2,12 +2,18 @@ import pkg from './package'
 
 export default {
   mode: 'universal',
-
+  /**
+   * 主机和端口的配置
+   *  */
+  server: {
+    // port: 8088, // default: 3000
+  },
+  
   /*
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: "总中心管理系统",
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -38,6 +44,11 @@ export default {
     {
       src: '@/plugins/element-ui', 
       ssr: false
+    },
+    // '@/plugins/lodash'
+    {
+      src: '@/plugins/lodash', 
+      ssr: false
     }
   ],
 
@@ -47,12 +58,25 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
   /*
   ** Axios module configuration
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    proxy: false
+  },
+   /*
+  ** proxy module configuration
+  */
+  proxy: {
+    '/api': {
+      target: 'http://example.com',
+      pathRewrite: {
+        '^/api' : '/'
+      }
+    }
   },
 
   /*
@@ -60,7 +84,8 @@ export default {
   */
   build: {
     transpile: [/^element-ui/],
-    
+    cache: true,
+    parallel: true,
     /*
     ** You can extend webpack config here
     */

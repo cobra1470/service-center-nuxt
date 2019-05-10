@@ -1,11 +1,31 @@
 <template>
   <div class="VueToNuxtLogo">
+    <div id="logoText"></div>
     <div class="Triangle Triangle--two" />
     <div class="Triangle Triangle--one" />
     <div class="Triangle Triangle--three" />
     <div class="Triangle Triangle--four" />
   </div>
 </template>
+
+<script>
+  export default{
+    data() {
+      return {
+        
+      }
+    },
+    mounted() {
+      this.$nextTick(() => {
+        
+      //   this.$nuxt.$loading.start()
+
+      //   setTimeout(() => this.$nuxt.$loading.finish(), 1000)
+      })
+    },
+
+  }
+</script>
 
 <style>
 .VueToNuxtLogo {
