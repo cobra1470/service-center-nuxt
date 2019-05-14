@@ -5,10 +5,11 @@
   "author": "cobra",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "dev": "cross-env milieu=dev nuxt",
+    "dev:test": "cross-env milieu=test nuxt",
+    "build": "cross-env baseUrl=https://api.douban.com nuxt build",
+    "start": "cross-env baseUrl=https://api.douban.com nuxt start",
+    "generate": "cross-env baseUrl=https://api.douban.com nuxt generate"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",

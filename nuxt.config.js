@@ -1,8 +1,15 @@
 import pkg from './package'
 import ApiConfig from './config/api'
+// const webpack = require('webpack')
 
 export default {
   mode: 'universal',
+
+  env: {
+    // baseUrl: process.env.BASE_URL,
+    milieu: process.env.milieu
+  },
+
   /**
    * 主机和端口的配置
    *  */
@@ -20,9 +27,12 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
+    // script: [
+    //   { src: '/js/a.js' }
+    // ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    ],
   },
 
   /*
@@ -71,7 +81,10 @@ export default {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    proxy: false
+    // proxy: true
+    proxy: true,
+    prefix: '/gsafetyclound',
+    credentials: true
   },
    /*
   ** proxy module configuration
@@ -80,9 +93,8 @@ export default {
     '/gsafetyclound': {
       target: ApiConfig.apiHost,
       changeOrigin: true,
-      secure: true,
       pathRewrite: {
-        '^/gsafetyclound': '/gsafetyclound'
+        '^/gsafetyclound': ''
       }
     },
   },
@@ -94,6 +106,34 @@ export default {
     transpile: [/^element-ui/],
     cache: true,
     parallel: true,
+    loaders: [
+      // {
+      //   test: /\.(scss|sass)$/,
+      //   use: [{
+      //     loader: "style-loader"
+      //   }, {
+      //     loader: "css-loader"
+      //   }, {
+      //     loader: "sass-loader"
+      //   }]
+      // },
+      // {
+      //   test: /\.(png|jpe?g|gif|svg)$/,
+      //   loader: 'url-loader',
+      //   query: {
+      //     limit: 1000,
+      //     name: 'img/[name].[hash:7].[ext]'
+      //   }
+      // },
+      // {
+      //   test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+      //   loader: 'url-loader',
+      //   query: {
+      //     limit: 1000,
+      //     name: 'fonts/[name].[hash:7].[ext]'
+      //   }
+      // }
+    ],
     /*
     ** You can extend webpack config here
     */

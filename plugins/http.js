@@ -7,5 +7,7 @@ import _http from '../utils/http';
 
 export default () => {
     // Vue.use(_)
-    Window.$http = Vue.prototype.$http = _http;
+    // Window.$http = Vue.prototype.$http = _http;
+    Window.$POST = Vue.prototype.$POST = _http.$POST;
+    Window.$GET = Vue.prototype.$GET = _http.$GET;
 }

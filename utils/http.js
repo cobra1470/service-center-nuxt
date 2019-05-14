@@ -13,8 +13,8 @@ import { Loading, Message } from 'element-ui'
 import ApiConfig from '../config/api'
 
 const http = axios.create({
-    baseURL: ApiConfig.apiHost,
-    timeout: 60000,
+    baseURL: "/gsafetyclound",
+    // timeout: 60000,
     responseType: 'json',
 
     // 表示跨域请求时是否需要使用凭证
@@ -32,8 +32,8 @@ const http = axios.create({
     transformRequest: [
         function (data) {
             let m = {
-                token: store.state.token,
-                COMPANYID: store.state.userInfo.companyId
+                token: "",
+                COMPANYID: ""
             };
             return qs.stringify(_.assign(data, m));
         }
@@ -113,16 +113,16 @@ function checkCode (error) {
 http.interceptors.request.use(config => {
     //完全不存在token 直接驳回请求，并跳转登录
 
+    console.log(558,config)
     //超时时间
-    console.log(config)
-    // if(config.timeout){
-    //     config.timeout = config.timeout
-    // }
+    if(config.timeout){
+        config.timeout = config.timeout
+    }
 
     if (config.method === 'get') {
         try {
-            config.params.token = store.state.token;
-            config.params.COMPANYID = store.state.userInfo.companyId;
+            config.params.token = "";
+            config.params.COMPANYID = "";
         } catch (error) {
 
         }
@@ -130,7 +130,7 @@ http.interceptors.request.use(config => {
     if (config.method === 'post') {
         //判断是否为流,对请求url做一些处理
         if (config.headers['Content-Type'] == 'application/json') {
-            config.url = `${config.url}`;  
+            // config.url = `${config.url}`;  
         }
     }
     return config;
@@ -150,4 +150,30 @@ http.interceptors.response.use(response => {
     return Promise.reject(error);
 });
 
-export default http;
+const $POST = (api_name,params,time) => {
+    let url = ApiConfig.api[api_name];
+    return http({
+        method: 'post',
+        url: url ,
+        data: params,
+        timeout: time,
+    })
+
+};
+
+const $GET = (api_name,params,time) => {
+    let url = ApiConfig.api[api_name];
+    return http({
+        method: 'get',
+        url: url ,
+        params,
+        timeout: time,
+    })
+
+};
+
+// export default http;
+export default {
+    $POST: $POST,
+    $GET: $GET,
+};

@@ -25,7 +25,6 @@
 </template>
 
 <script>
-
     import {mapState, mapActions} from 'vuex'
     import Logo from '~/components/Logo.vue'
 
@@ -61,11 +60,14 @@
                     id:"001",
                     name: "Dylan"
                 };
-
-                this.setUser(user)
-
-
-                console.log(111,this.$http)
+                
+                this.$GET("queryCount",{}).then((res)=>{
+                    console.log(res)
+                    this.setUser(user)
+                })
+                .catch((error)=>{
+                    console.log(error)
+                })
 
             }
         },
