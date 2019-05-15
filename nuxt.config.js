@@ -53,8 +53,8 @@ export default {
   plugins: [
     // '@/plugins/http'
     {
-      src: '@/plugins/http', 
-      ssr: false
+      src: '@/plugins/axios', 
+      ssr: true
     },
     // '@/plugins/element-ui'
     {

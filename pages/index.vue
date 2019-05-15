@@ -3,7 +3,7 @@
         <div>
             <logo />
             <h1 class="title">
-            service-center-nuxt
+            {{ title }}
             </h1>
             <h2 class="subtitle">
             My awe-inspiring Nuxt.js project
@@ -33,12 +33,22 @@
         components: {
             Logo
         },
-
-        data() {
-            return {
-                
-            }
+        
+        asyncData({$axios}) {
+            return $axios.$POST("queryCount",{}).then((res)=>{
+                    console.log(res)
+                    return {title: "service-center-nuxt111",resData: res.data}
+                })
+                .catch((error)=>{
+                    console.log(error)
+                })
         },
+
+        // data() {
+        //     return {
+        //         title: "service-center-nuxt",
+        //     }
+        // },
 
         computed: {
             ...mapState({
@@ -47,7 +57,7 @@
         },
 
         mounted() {
-            this.getUserData();
+            // this.getUserData();
         },
 
         methods: {
@@ -60,9 +70,9 @@
                     id:"001",
                     name: "Dylan"
                 };
-                
-                this.$GET("queryCount",{}).then((res)=>{
+                this.$axios.$POST("queryCount",{}).then((res)=>{
                     console.log(res)
+
                     this.setUser(user)
                 })
                 .catch((error)=>{
