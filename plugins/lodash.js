@@ -6,14 +6,6 @@
 import Vue from 'vue';
 import _ from 'lodash';
 
-// import _cloneDeep from 'lodash/cloneDeep';
-// import _uniq from 'lodash/uniq';
-
-// const _ = {
-//     uniq: _uniq,
-//     cloneDeep: _cloneDeep,
-// }
-
 export default () => {
     Vue.use({
         install: function (Vue, Option) {

@@ -3,7 +3,7 @@
         <div>
             <logo />
             <h1 class="title">
-            {{ title }}
+            {{ title }} -- {{resData}}
             </h1>
             <h2 class="subtitle">
             My awe-inspiring Nuxt.js project
@@ -20,6 +20,8 @@
                 class="button--grey"
             >GitHub</a>
             </div>
+
+            <nuxt-link to="./about">about</nuxt-link>
         </div>
     </section>
 </template>
@@ -34,21 +36,25 @@
             Logo
         },
         
-        asyncData({$axios}) {
-            return $axios.$POST("queryCount",{}).then((res)=>{
-                    console.log(res)
-                    return {title: "service-center-nuxt111",resData: res.data}
-                })
-                .catch((error)=>{
-                    console.log(error)
-                })
-        },
+        // async asyncData ({ $axios }) {
+		// 	let { data } = await $axios.$POST({
+		// 		api_name:"login",
+		// 		params:{
+		// 			sysCode:"eRecord",
+		// 			loginName:"dzda01",
+		// 			password:pwd,
+		// 			client:"Web"
+		// 		}
+		// 	})
+		// 	return { title: data }
+		// },
 
-        // data() {
-        //     return {
-        //         title: "service-center-nuxt",
-        //     }
-        // },
+        data() {
+            return {
+                title: "service-center-nuxt",
+                resData:""
+            }
+        },
 
         computed: {
             ...mapState({
@@ -70,9 +76,12 @@
                     id:"001",
                     name: "Dylan"
                 };
-                this.$axios.$POST("queryCount",{}).then((res)=>{
+                this.$axios.$POST({
+                    api_name:"queryCount",
+                    params:{}
+                }).then((res)=>{
                     console.log(res)
-
+                    this.resData = res.data[0].distName
                     this.setUser(user)
                 })
                 .catch((error)=>{

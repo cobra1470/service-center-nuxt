@@ -11,19 +11,15 @@
 //     Window.$POST = Vue.prototype.$POST = _http.$POST;
 //     Window.$GET = Vue.prototype.$GET = _http.$GET;
 // }
+
 import ApiConfig from '@/config/api'
+import qs from 'qs'
 
 export default function ({ $axios, redirect }) {
-    // $axios.onRequest(config => {
-    //   console.log('Making request to ' + config.url)
-    // })
-  
-    
 
-    let http = $axios; 
     // 基本配置
-    $axios.defaults.baseURL = "/gsafetyclound",
-    $axios.defaults.timeout = 10000
+    $axios.defaults.baseURL = "/gsafetyclound"
+    // $axios.defaults.timeout = 60000
     $axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
    
     // 请求回调
@@ -42,10 +38,23 @@ export default function ({ $axios, redirect }) {
         // }
     })
 
-    $axios.$POST = (api_name,params,time) => {
+    $axios.$GET = ({api_name,params,time}) => {
         let url = ApiConfig.api[api_name];
-        return $axios.$post(url,params,{
-            timeout: time,
+        return $axios({
+            method: 'get',
+            url: url,
+            params: params,
+            timeout: time || 60000,
+        })
+    };
+
+    $axios.$POST = ({api_name,params,time}) => {
+        let url = ApiConfig.api[api_name];
+        return $axios({
+            method: 'post',
+            url: url,
+            data: qs.stringify(params),
+            timeout: time || 60000,
         })
     };
 }

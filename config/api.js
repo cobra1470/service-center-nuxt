@@ -7,21 +7,19 @@ const getTargetHost = (milieu) => {
     
     switch (milieu) {
         case 'test':
-            return 'http://112.27.198.15:9832/api/v1.1/operation-management/';
+            return 'http://112.27.198.15:9832/api/v1.1/operation-management';
         case 'dev':
-            return 'http://test.gsafetycloud.com/api/v1.1/operation-management/';
+            return 'http://112.27.198.15:9832/api/v1';
         default:
             return milieu;
     }
 };
 
 export default {
-    // apiHost: "https://api.douban.com/", 
     apiHost: getTargetHost(process.env.milieu), 
     api: {
-        comingSoon: "v2/movie/coming_soon",
-        top250: "v2/movie/top250",
-        queryCount: "mainOperationOrgController/queryDistrictCascode"
+        queryCount: "/mainOperationOrgController/queryDistrictCascode",
+        login: "/upms-service/login/login"
     },
 
     // websocket地址

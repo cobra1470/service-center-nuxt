@@ -13,9 +13,11 @@ export default {
   /**
    * 主机和端口的配置
    *  */
-  server: {
-    // port: 8088, // default: 3000
-  },
+  // server: {
+
+  //   host:"127.0.0.1",
+  //   port: 5666, // default: 3000
+  // },
   
   /*
   ** Headers of the page
@@ -59,7 +61,7 @@ export default {
     // '@/plugins/element-ui'
     {
       src: '@/plugins/element-ui', 
-      ssr: false
+      ssr: true
     },
     // '@/plugins/lodash'
     {
@@ -81,7 +83,6 @@ export default {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    // proxy: true
     proxy: true,
     prefix: '/gsafetyclound',
     credentials: true
@@ -93,6 +94,7 @@ export default {
     '/gsafetyclound': {
       target: ApiConfig.apiHost,
       changeOrigin: true,
+      secure: false,
       pathRewrite: {
         '^/gsafetyclound': ''
       }
@@ -107,32 +109,32 @@ export default {
     cache: true,
     parallel: true,
     loaders: [
-      // {
-      //   test: /\.(scss|sass)$/,
-      //   use: [{
-      //     loader: "style-loader"
-      //   }, {
-      //     loader: "css-loader"
-      //   }, {
-      //     loader: "sass-loader"
-      //   }]
-      // },
-      // {
-      //   test: /\.(png|jpe?g|gif|svg)$/,
-      //   loader: 'url-loader',
-      //   query: {
-      //     limit: 1000,
-      //     name: 'img/[name].[hash:7].[ext]'
-      //   }
-      // },
-      // {
-      //   test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-      //   loader: 'url-loader',
-      //   query: {
-      //     limit: 1000,
-      //     name: 'fonts/[name].[hash:7].[ext]'
-      //   }
-      // }
+      {
+        test: /\.(scss|sass)$/,
+        use: [{
+          loader: "style-loader"
+        }, {
+          loader: "css-loader"
+        }, {
+          loader: "sass-loader"
+        }]
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
+        loader: 'url-loader',
+        query: {
+          limit: 1000,
+          name: 'img/[name].[hash:7].[ext]'
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        query: {
+          limit: 1000,
+          name: 'fonts/[name].[hash:7].[ext]'
+        }
+      }
     ],
     /*
     ** You can extend webpack config here

@@ -1,7 +1,14 @@
 <template>
-  <div>
-    <nuxt />
-  </div>
+    <div class="defaultLayout">
+        <el-container>
+            <el-header class="menu">
+                
+            </el-header>
+            <el-main>
+                <nuxt />
+            </el-main>
+        </el-container>
+    </div>
 </template>
 
 <style>
